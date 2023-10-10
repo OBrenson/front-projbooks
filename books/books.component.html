@@ -1,0 +1,46 @@
+<table mat-table [dataSource]="dataSource">
+
+  <ng-container matColumnDef="title">
+    <th mat-header-cell *matHeaderCellDef> Title</th>
+    <td mat-cell *matCellDef="let element">
+      <input class="tab_field" [type]="element.type" matInput [(ngModel)]="element.title">
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="genre">
+    <th mat-header-cell *matHeaderCellDef> Genre</th>
+    <td mat-cell *matCellDef="let element" >
+      <mat-form-field >
+        <mat-select (selectionChange)="onPublChange($event, element)" [(ngModel)]="element.genre.id">
+          <mat-option *ngFor="let g of genres" [value]="g.id">
+            {{ g.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="authors">
+    <th mat-header-cell *matHeaderCellDef> Authors</th>
+    <td mat-cell *matCellDef="let element">
+      {{getAuthorsNames(element.authors)}}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="publ">
+    <th mat-header-cell *matHeaderCellDef> Publishing House</th>
+    <td mat-cell *matCellDef="let element" >
+      <mat-form-field >
+        <mat-select (selectionChange)="onPublChange($event, element)" [(ngModel)]="element.publ.id">
+          <mat-option *ngFor="let p of publs" [value]="p.id">
+            {{ p.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+

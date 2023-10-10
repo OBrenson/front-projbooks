@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import {EventEmitter, Injectable, Output} from '@angular/core';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -8,7 +8,11 @@ import { map } from 'rxjs/operators';
 export class AuthenticationService {
 
   // BASE_PATH: 'http://localhost:8080'
-  USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser'
+  USER_NAME = 'authenticatedUser'
+  PASS = "pass"
+
+
+  @Output() getLoggedInName: EventEmitter<any> = new EventEmitter();
 
   public username: String = "";
   public password: String = "";
@@ -27,23 +31,28 @@ export class AuthenticationService {
   }
 
   registerSuccessfulLogin(username: string, password: string) {
-    sessionStorage.setItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME, username)
+    sessionStorage.setItem(this.USER_NAME, username)
+    sessionStorage.setItem(this.PASS, password)
+    this.username = username
+    this.password = password
+    this.getLoggedInName.emit();
   }
 
   logout() {
-    sessionStorage.removeItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
+    sessionStorage.removeItem(this.USER_NAME);
     this.username = "";
     this.password = "";
+    this.getLoggedInName.emit();
   }
 
   isUserLoggedIn() {
-    let user = sessionStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME)
+    let user = sessionStorage.getItem(this.USER_NAME)
     if (user === null) return false
     return true
   }
 
   getLoggedInUserName() {
-    let user = sessionStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME)
+    let user = sessionStorage.getItem(this.USER_NAME)
     if (user === null) return ''
     return user
   }

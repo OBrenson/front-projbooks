@@ -3,34 +3,47 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HelloWorldComponent } from './hello-world/hello-world.component';
 import { MenuComponent } from './menu/menu.component';
 import { LoginComponent } from './login/login.component';
 
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { LogoutComponent } from './logout/logout.component';
 import { HttpInterceptorService } from './httpInterceptor.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { BooksComponent } from './books/books.component';
+import {MatTableModule} from "@angular/material/table";
+import {MatInputModule} from "@angular/material/input";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatSelectModule} from "@angular/material/select";
+import {CommonModule} from "@angular/common";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
     AppComponent,
-    HelloWorldComponent,
     MenuComponent,
     LoginComponent,
-    LogoutComponent
+    LogoutComponent,
+    BooksComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    MatTableModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    CommonModule,
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorService,
-      multi: true
+      multi: true,
     }
   ],
   bootstrap: [AppComponent]

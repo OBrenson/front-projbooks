@@ -10,10 +10,12 @@ export class HttpInterceptorService implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (this.authenticationService.isUserLoggedIn() && req.url.indexOf('basicauth') === -1) {
+      let username = sessionStorage.getItem(this.authenticationService.USER_NAME)
+      let pass = sessionStorage.getItem(this.authenticationService.PASS)
       const authReq = req.clone({
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
-          'Authorization': `Basic ${window.btoa(this.authenticationService.username + ":" + this.authenticationService.password)}`
+          'Authorization': `Basic ${window.btoa(username + ":" + pass)}`
         })
       });
       return next.handle(authReq);

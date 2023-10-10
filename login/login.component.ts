@@ -22,6 +22,7 @@ export class LoginComponent implements OnInit {
     private authenticationService: AuthenticationService) {   }
 
   ngOnInit() {
+    this.authenticationService.logout()
   }
 
   handleLogin() {
@@ -29,7 +30,8 @@ export class LoginComponent implements OnInit {
       this.invalidLogin = false;
       this.loginSuccess = true;
       this.successMessage = 'Login Successful.';
-      this.router.navigate(['/hello-world']);
+      this.authenticationService.registerSuccessfulLogin(this.username, this.password)
+      this.router.navigate(['/books']);
     })
     // () => {
     //   this.invalidLogin = true;
