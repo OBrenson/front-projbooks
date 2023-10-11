@@ -14,3 +14,7 @@ th.mat-header-cell {
   background-color: whitesmoke;
   border-radius: 30px;
 }
+
+button {
+  border:0;
+}

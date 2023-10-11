@@ -1,4 +1,4 @@
-<table mat-table [dataSource]="dataSource">
+<table mat-table [dataSource]="dataSource" matSort>
 
   <ng-container matColumnDef="title">
     <th mat-header-cell *matHeaderCellDef> Title</th>
@@ -11,7 +11,7 @@
     <th mat-header-cell *matHeaderCellDef> Genre</th>
     <td mat-cell *matCellDef="let element" >
       <mat-form-field >
-        <mat-select (selectionChange)="onPublChange($event, element)" [(ngModel)]="element.genre.id">
+        <mat-select (selectionChange)="onGenreChange($event, element)" [(ngModel)]="element.genre.id">
           <mat-option *ngFor="let g of genres" [value]="g.id">
             {{ g.name }}
           </mat-option>
@@ -23,7 +23,19 @@
   <ng-container matColumnDef="authors">
     <th mat-header-cell *matHeaderCellDef> Authors</th>
     <td mat-cell *matCellDef="let element">
-      {{getAuthorsNames(element.authors)}}
+      <div *ngFor="let author of element.authors"  class="d-flex justify-content-end">
+        <div>
+        {{author.name}}
+        <button mat-button color="white" (click)="deleteAuthor(author, element)">
+          <mat-icon>delete</mat-icon>
+        </button>
+        </div>
+      </div>
+      <mat-select (selectionChange)="addAuthor($event, element)" (toggle)="true">
+        <mat-option *ngFor="let a of authors" [value]="a">
+          {{ a.name }}
+        </mat-option>
+      </mat-select>
     </td>
   </ng-container>
 
@@ -40,7 +52,25 @@
     </td>
   </ng-container>
 
+  <ng-container matColumnDef="save">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-button color="white" (click)="save(element)" ><mat-icon>save</mat-icon></button>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="delete">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let element">
+      <button *ngIf = 'element.id != ""' (click)="delete(element.id)" mat-button color="white"><mat-icon>delete</mat-icon></button>
+    </td>
+  </ng-container>
+
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
-
+<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"
+               (page)="handlePageEvent($event)"
+               [length]="length"
+               aria-label="Select page of users">
+</mat-paginator>

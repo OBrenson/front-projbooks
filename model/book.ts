@@ -7,5 +7,6 @@ export interface Book {
   id: String,
   authors: Author[],
   genre: Genre,
-  publ: Publ
+  publ: Publ,
+  authorsNames: String
 }
