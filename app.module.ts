@@ -21,6 +21,9 @@ import {MatIconModule} from '@angular/material/icon'
 import {MatButtonModule} from "@angular/material/button";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatSortModule} from "@angular/material/sort";
+import { GenresComponent } from './genres/genres.component';
+import { PublsComponent } from './publs/publs.component';
+import { AuthorsComponent } from './authors/authors.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,10 @@ import {MatSortModule} from "@angular/material/sort";
     MenuComponent,
     LoginComponent,
     LogoutComponent,
-    BooksComponent
+    BooksComponent,
+    GenresComponent,
+    PublsComponent,
+    AuthorsComponent
   ],
   imports: [
     BrowserModule,

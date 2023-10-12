@@ -1,12 +1,5 @@
 table {
-  width: 100%;
-  overflow-x: auto;
-  overflow-y: hidden;
-  min-width: 500px;
-}
-th.mat-header-cell {
-  text-align: left;
-  max-width: 300px;
+  width: auto;
 }
 
 .tab_field {
@@ -17,6 +10,11 @@ th.mat-header-cell {
 
 button {
   border:0;
+}
+
+mat-column-name {
+  flex: 0 0 70% !important;
+  width: 28% !important;
 }
 
 .mat-column-save {

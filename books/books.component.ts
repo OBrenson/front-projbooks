@@ -43,7 +43,7 @@ export class BooksComponent implements OnInit  {
       this.genres = res
     })
 
-    this.apiService.getAuthors().subscribe((res) => {
+    this.apiService.getAuthors(0,0).subscribe((res) => {
       this.authors = res
     })
   }
@@ -51,9 +51,6 @@ export class BooksComponent implements OnInit  {
   loadBooks() {
     this.apiService.getBooks(this.pageNum, this.pageSize).subscribe((res) => {
       res.push({authors: [], genre: {id: "", name: ""}, id: "", publ: {id: "", name: ""}, title: "", authorsNames: ""})
-      res.forEach((b) => {
-        b.authorsNames = this.getAuthorsNames(b.authors)
-      })
       this.dataSource.data = res
       this.apiService.countBooks().subscribe(count => {
         this.length = count
@@ -66,14 +63,14 @@ export class BooksComponent implements OnInit  {
   }
 
   public save(book: Book) {
-    this.apiService.saveBook(book, this.loadBooks, this)
+    this.apiService.save<Book>(book, "books", this.loadBooks, this)
     if(book.id == "") {
       this.loadBooks()
     }
   }
 
   public delete(id: String) {
-    this.apiService.deleteBook(id, this.loadBooks, this)
+    this.apiService.delete(id, "books", this.loadBooks, this)
   }
 
   public addAuthor(event: MatSelectChange, book: Book) {
