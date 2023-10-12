@@ -4,6 +4,7 @@ import {Book} from "../model/book";
 import {Author} from "../model/author";
 import {ApiService} from "../api.service";
 import {PageEvent} from "@angular/material/paginator";
+import {Sort} from "@angular/material/sort";
 
 @Component({
   selector: 'app-authors',
@@ -59,5 +60,15 @@ export class AuthorsComponent {
     this.pageSize = event.pageSize
     this.pageNum = event.pageIndex
     this.loadAuthors()
+  }
+
+  public sortData(sort: Sort) {
+    if(!sort.direction) {
+      return
+    }
+    this.apiService.getSortedPages<Author>(this.pageNum, this.pageSize, this.uri, sort.active, sort.direction).subscribe(res => {
+      res.push({name: "", id: "", books: []})
+      this.dataSource.data = res
+    })
   }
 }

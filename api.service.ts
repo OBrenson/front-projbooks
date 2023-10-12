@@ -35,6 +35,16 @@ export class ApiService {
       .get<Genre[]>('http://localhost:8080/library/genre/get/all')
   }
 
+  getSortedPages<Type>(pageNum: number, pageSize: number, uri: string, sortBy: string, isDesc: string): Observable<Type[]> {
+    if(isDesc === "asc") {
+      isDesc = "false"
+    } else if (isDesc === "desc") {
+      isDesc = "true"
+    }
+    return this.httpClient
+      .get<Type[]>(`http://localhost:8080/library/${uri}/get/all/${pageNum}/${pageSize}?sortBy=${sortBy}&isDesc=${isDesc}`)
+  }
+
   getSorted<Type>(uri: string, sortBy: string, isDesc: string): Observable<Type[]> {
     if(isDesc === "asc") {
       isDesc = "false"

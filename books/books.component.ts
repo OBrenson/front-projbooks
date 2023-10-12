@@ -10,6 +10,7 @@ import {Publ} from "../model/publ";
 import {Genre} from "../model/genre";
 import {MatOption} from "@angular/material/core";
 import {PageEvent} from "@angular/material/paginator";
+import {Sort} from "@angular/material/sort";
 
 @Component({
   selector: 'app-books',
@@ -20,6 +21,7 @@ export class BooksComponent implements OnInit  {
 
   isLoggedIn = false;
 
+  private uri = "books"
 
   public length = 100;
   public dataSource = new MatTableDataSource<Book>()
@@ -63,14 +65,14 @@ export class BooksComponent implements OnInit  {
   }
 
   public save(book: Book) {
-    this.apiService.save<Book>(book, "books", this.loadBooks, this)
+    this.apiService.save<Book>(book, this.uri, this.loadBooks, this)
     if(book.id == "") {
       this.loadBooks()
     }
   }
 
   public delete(id: String) {
-    this.apiService.delete(id, "books", this.loadBooks, this)
+    this.apiService.delete(id, this.uri, this.loadBooks, this)
   }
 
   public addAuthor(event: MatSelectChange, book: Book) {
@@ -106,6 +108,16 @@ export class BooksComponent implements OnInit  {
         return
       }
     }
+  }
+
+  public sortData(sort: Sort) {
+    if(!sort.direction) {
+      return
+    }
+    this.apiService.getSortedPages<Book>(this.pageNum, this.pageSize, this.uri, sort.active, sort.direction).subscribe(res => {
+      res.push({authors: [], genre: {id: "", name: ""}, id: "", publ: {id: "", name: ""}, title: "", authorsNames: ""})
+      this.dataSource.data = res
+    })
   }
 
   public handlePageEvent(event: PageEvent) {
