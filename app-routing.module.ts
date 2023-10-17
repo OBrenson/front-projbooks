@@ -6,6 +6,7 @@ import {BooksComponent} from "./books/books.component";
 import {PublsComponent} from "./publs/publs.component";
 import {AuthorsComponent} from "./authors/authors.component";
 import {GenresComponent} from "./genres/genres.component";
+import {UsersComponent} from "./users/users.component";
 
 const routes: Routes = [
     {path: 'login', component: LoginComponent},
@@ -15,7 +16,8 @@ const routes: Routes = [
     {path: 'books', component: BooksComponent},
     {path: 'publs', component: PublsComponent},
     {path: 'authors', component: AuthorsComponent},
-    {path: 'genres', component: GenresComponent}
+    {path: 'genres', component: GenresComponent},
+    {path: 'users', component: UsersComponent}
 ];
 
 @NgModule({

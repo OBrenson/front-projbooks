@@ -6,6 +6,7 @@ import {AuthenticationService} from "./login/auth.service";
 import {Publ} from "./model/publ";
 import {Genre} from "./model/genre";
 import {Author} from "./model/author";
+import {User} from "./model/user";
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,11 @@ export class ApiService {
   getPubls(): Observable<Publ[]> {
     return this.httpClient
       .get<Publ[]>('http://localhost:8080/library/publ/get/all')
+  }
+
+  getUsers(): Observable<User[]> {
+    return this.httpClient
+      .get<User[]>('http://localhost:8080/library/users/get/all')
   }
 
   getGenres(): Observable<Genre[]> {

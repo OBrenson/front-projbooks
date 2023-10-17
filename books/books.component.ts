@@ -60,10 +60,6 @@ export class BooksComponent implements OnInit  {
     })
   }
 
-   getAuthorsNames(authors: Author[]): String {
-    return authors.map(a => a.name).join(", ")
-  }
-
   public save(book: Book) {
     this.apiService.save<Book>(book, this.uri, this.loadBooks, this)
     if(book.id == "") {
@@ -87,7 +83,6 @@ export class BooksComponent implements OnInit  {
     }
     if(changed) {
       book.authors.push(event.value)
-      book.authorsNames = this.getAuthorsNames(book.authors)
       event.value = null
     }
     event.source.options.forEach((data: MatOption) => data.deselect());

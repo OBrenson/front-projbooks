@@ -10,6 +10,7 @@ export class AuthenticationService {
   // BASE_PATH: 'http://localhost:8080'
   USER_NAME = 'authenticatedUser'
   PASS = "pass"
+  IS_ADMIN = "isAdmin";
 
 
   @Output() getLoggedInName: EventEmitter<any> = new EventEmitter();
@@ -30,12 +31,13 @@ export class AuthenticationService {
     return 'Basic ' + window.btoa(username + ":" + password)
   }
 
-  registerSuccessfulLogin(username: string, password: string) {
+  registerSuccessfulLogin(username: string, password: string, isAdmin: boolean) {
     sessionStorage.setItem(this.USER_NAME, username)
     sessionStorage.setItem(this.PASS, password)
     this.username = username
     this.password = password
     this.getLoggedInName.emit();
+    sessionStorage.setItem(this.IS_ADMIN, String(isAdmin))
   }
 
   logout() {
@@ -49,6 +51,10 @@ export class AuthenticationService {
     let user = sessionStorage.getItem(this.USER_NAME)
     if (user === null) return false
     return true
+  }
+
+  isAdmin(): boolean {
+    return sessionStorage.getItem(this.IS_ADMIN) === "true"
   }
 
   getLoggedInUserName() {

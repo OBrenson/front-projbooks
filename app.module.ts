@@ -24,6 +24,7 @@ import {MatSortModule} from "@angular/material/sort";
 import { GenresComponent } from './genres/genres.component';
 import { PublsComponent } from './publs/publs.component';
 import { AuthorsComponent } from './authors/authors.component';
+import { UsersComponent } from './users/users.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { AuthorsComponent } from './authors/authors.component';
     BooksComponent,
     GenresComponent,
     PublsComponent,
-    AuthorsComponent
+    AuthorsComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,

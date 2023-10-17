@@ -1,0 +1,28 @@
+table {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  min-width: 500px;
+}
+th.mat-header-cell {
+  text-align: left;
+  max-width: 300px;
+}
+
+.tab_field {
+  border: 0;
+  background-color: whitesmoke;
+  border-radius: 30px;
+}
+
+button {
+  border:0;
+}
+
+.mat-column-save {
+  width: 32px;
+}
+
+.mat-column-delete {
+  width: 32px;
+}

@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class MenuComponent implements OnInit {
 
   isLoggedIn = false;
+  isAdmin = false
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -19,6 +20,7 @@ export class MenuComponent implements OnInit {
 
   ngOnInit() {
     this.isLoggedIn = this.authenticationService.isUserLoggedIn();
+    this.isAdmin = this.authenticationService.isAdmin();
     console.log('menu ->' + this.isLoggedIn);
   }
 

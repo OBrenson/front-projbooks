@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from './auth.service';
+import {Message} from "../model/message";
 
 @Component({
   selector: 'app-login',
@@ -30,7 +31,8 @@ export class LoginComponent implements OnInit {
       this.invalidLogin = false;
       this.loginSuccess = true;
       this.successMessage = 'Login Successful.';
-      this.authenticationService.registerSuccessfulLogin(this.username, this.password)
+      let isAdmin = (result as Message).message.includes("ADMIN")
+      this.authenticationService.registerSuccessfulLogin(this.username, this.password, isAdmin)
       this.router.navigate(['/books']);
     })
     // () => {
