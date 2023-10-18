@@ -36,8 +36,8 @@ export class AuthenticationService {
     sessionStorage.setItem(this.PASS, password)
     this.username = username
     this.password = password
-    this.getLoggedInName.emit();
     sessionStorage.setItem(this.IS_ADMIN, String(isAdmin))
+    this.getLoggedInName.emit();
   }
 
   logout() {
